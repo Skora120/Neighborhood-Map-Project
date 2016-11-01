@@ -19,7 +19,8 @@ I had to make a Neighborhood map using couple apis.
 ## Resources
 
 * Google Maps API [[link]](https://developers.google.com/maps/)
-* OpenWeatherMap API [[link]](http://openweathermap.org/api)
+* ~~OpenWeatherMap API [[link]](http://openweathermap.org/api)~~(YOU HAVE TO PAY FOR HTTPS joke)
+* DarkSky API [[link]](https://darksky.net)(insted OpenWeatherMap Api)
 * Wikipedia API [[link]](https://www.mediawiki.org/wiki/MediaWiki)
 * jQuerry [[link]](https://jquery.com/)
 * Knckout [[link]](http://knockoutjs.com/)
