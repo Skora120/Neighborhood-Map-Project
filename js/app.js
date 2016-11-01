@@ -28,7 +28,7 @@ var Marker = function(){
 	//wikiApi https://www.mediawiki.org/wiki/API:Main_page/pl
 	var wikiArticle;
 	this.wikiApi = function(s){
-	    var wikiUrl = "http://en.wikipedia.org/w/api.php?action=opensearch&search="+s+"&format=json&callback=wikiCallback";
+	    var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search="+s+"&format=json&callback=wikiCallback";
 	   
 	    var wikiRequestTimeout = setTimeout(function(){
 	       wikiArticle = ("Failed to get wikiperdia resources");
