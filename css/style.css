@@ -1,0 +1,63 @@
+body{
+	width: 100%;
+	height: 100%;
+	color: #FFF;
+	background-color: #000;
+}
+
+main{
+	display: flex;
+}
+
+#mapAndBurger{
+	width: 80%;
+	background-color: #000;
+}
+
+#menuBurger{
+	width: 20%;
+	background-color: #000;
+}
+
+#burgerButton{
+	max-height: 5vh;
+}
+
+#map{
+	height: 100vh;
+	color: #000;
+}
+li,ul{
+	margin: 0;
+	padding: 0;
+}
+
+h2{
+	text-align: center;
+
+}
+
+#lista{
+	padding-top: 10%;
+	list-style-type: none;
+	font-size: 2vw;
+}
+
+.listPlaces{
+	max-width: 80%;
+	margin: 4% auto 4% auto;
+	padding-left: auto;
+	text-align: center;
+	border-radius: 1vh;
+	background: #7C7C7C;
+	padding: 1%;
+
+}
+
+#inputField{
+	width: 90%;	
+	height: 3%;
+
+	margin: auto;
+	font-size: 2vw;
+}
