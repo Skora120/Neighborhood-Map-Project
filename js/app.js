@@ -50,17 +50,19 @@ var Marker = function(){
 }
 
   	for(var i=0;i<locations.length;i++){
-  	// OpenWeatherApi  http://openweathermap.org/api
-  	this.weather;
+  	// darksky  https://darksky.net
+  	var weather = " ";
 
-	$.get("http://api.openweathermap.org/data/2.5/forecast/city?lat="+locations[i].location.lat+"&lon="+locations[i].location.lng+"&APPID=cb6d5ec45fbedcd4e74afc795a69ad08&units=metric",
-	function(data) {
-		$("#data").text(data); 
-		weather = data;
-	})
-	 .fail(function() {
-   		weather = "Tempetature cannot be loaded."
- 	 })
+	urlDrakSky = "https://api.darksky.net/forecast/424c41ef00700e646c6be8a088a27230/"+locations[i].location.lat+","+locations[i].location.lng+"?units=si";
+    $.ajax({
+        url: urlDrakSky,
+        dataType: "jsonp",
+        crossDomain: true,
+        success: function (response) {
+        	self.weather = response.currently.temperature;
+        },
+        error: function() { alert('Failed to load DarkSky!'); },
+    })
 
 	//Listener for menu list
 		$("#list"+i).on("click", function (){
@@ -68,7 +70,7 @@ var Marker = function(){
 				//Checking for good marker and good info
 				if(markers[x].title === $(this).html()){
 					self.wikiApi($(this).html());
-					var temp = weather.list[0].main.temp;
+					var temp = self.weather;
 					var retTemp = Math.floor((9/5*temp+32));
 					var title = locations[x].title;
 					var lat = locations[x].location.lat;
@@ -78,7 +80,7 @@ var Marker = function(){
 					//infowindow have to wait for data from wiki api
 					setTimeout(function(){ 
 					infowindow.setContent(title+"<p>Cords "+lat+" "+lng+"</p>"+
-						"<p>Tempetature: "+temp+"°C /"+retTemp+" °F"+
+						"<p>Tempetature: "+self.weather+"°C / "+retTemp+" °F"+
 						"<p>Wiki article: "+ wikiArticle);
 					 }, 1000);
 		      	 	infowindow.open(map, markers[x]);
