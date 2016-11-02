@@ -29,7 +29,7 @@ var Marker = function(){
 	var wikiArticle;
 	this.wikiApi = function(s){
 	    var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search="+s+"&format=json&callback=wikiCallback";
-	   
+	   this.wikiError = "";
 	    var wikiRequestTimeout = setTimeout(function(){
 	       wikiArticle = ("Failed to get wikiperdia resources");
 	    }, 8000);
@@ -44,18 +44,19 @@ var Marker = function(){
 	            var url = response[3][0];
 	            //Href to infowindow from menu
 	            wikiArticle = ("<a = href='"+url+"'>"+articleStr+"</a>");
-				clearTimeout(wikiRequestTimeout);
 	        }
-	    })
+	    }).fail(function() {
+		    wikiArticle = "Error with wikiApi";
+		});
 }
 
   	for(var i=0;i<locations.length;i++){
   	// darksky  https://darksky.net
   	var weather = " ";
 
-	urlDrakSky = "https://api.darksky.net/forecast/424c41ef00700e646c6be8a088a27230/"+locations[i].location.lat+","+locations[i].location.lng+"?units=si";
+	urlDarkSky = "https://api.darksky.net/forecast/424c41ef00700e646c6be8a088a27230/"+locations[i].location.lat+","+locations[i].location.lng+"?units=si";
     $.ajax({
-        url: urlDrakSky,
+        url: urlDarkSky,
         dataType: "jsonp",
         crossDomain: true,
         success: function (response) {
@@ -112,7 +113,7 @@ var ViewModel = function(){
 		}
 	};
 
-	//Real time list create
+	//Real time list create with jQuerry
     self.worker = ko.computed(function () {
         if (self.str()){
         	self.zoom();
@@ -123,7 +124,42 @@ var ViewModel = function(){
 				var position = locations[i].location;
 				$("#lista").append("<li id='list"+i+"' class='listPlaces'>"+title+"</li>");
 			}
-        }});
+        }
+    });
+	
+
+	//Real time list wthout jQuerry
+	/*
+    self.removeList = function(){
+       	for(var i=0;i<locations.length;i++){
+			document.getElementById("list"+i).remove();
+		}
+	}
+    self.worker = ko.computed(function () {
+        if (self.str()){
+        	self.zoom();
+        }else if(self.str() != null){
+    		for(var i=0; i<locations.length; i++){
+        		var title = locations[i].title;
+				var position = locations[i].location;
+
+				var text = document.createElement("li");
+				text.className = "list"+i;
+				text.innerHTML = (title);
+
+			//	text = ("<li id='list"+i+"' class='listPlaces'>"+title+"</li>");
+				//node.appendChild = text;
+			    var node = document.createElement("li");
+			    var textnode = document.createTextNode(title);
+			    node.appendChild(textnode);
+			    node.setAttribute("id", "list"+i);
+			    document.getElementById("lista").appendChild(node);
+
+     	   }
+		}else{
+			self.removeList();
+		}
+	*/
 
     //Filter list
 	this.zoom = function(){
